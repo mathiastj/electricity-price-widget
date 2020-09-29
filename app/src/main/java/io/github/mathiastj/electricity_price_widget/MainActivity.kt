@@ -18,6 +18,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.reflect.Type
 import java.net.URL
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val chart = findViewById<BarChart>(R.id.bar_chart)
 
         val entries = ArrayList<BarEntry>()
-        entries.add(BarEntry(1.0F, 2.0F))
+/*        entries.add(BarEntry(1.0F, 2.0F))
         entries.add(BarEntry(2.0F, 25.0F))
         entries.add(BarEntry(3.0F, 20.0F))
         entries.add(BarEntry(4.0F, 20.0F))
@@ -58,13 +60,10 @@ class MainActivity : AppCompatActivity() {
         entries.add(BarEntry(21.0F, 20.0F))
         entries.add(BarEntry(22.0F, 20.0F))
         entries.add(BarEntry(23.0F, 20.0F))
-        entries.add(BarEntry(24.0F, 20.0F))
+        entries.add(BarEntry(24.0F, 20.0F))*/
 
 
-        val dataSet = BarDataSet(entries, "price")
-        val barData = BarData(dataSet)
-        chart.data = barData
-        chart.invalidate()
+
 
         val scope = CoroutineScope(context = Dispatchers.Main)
         scope.launch {
@@ -97,9 +96,40 @@ class MainActivity : AppCompatActivity() {
                 val adapter = moshi.adapter<ElectricityDataResponse>(ElectricityDataResponse::class.java)
                 val json = adapter.fromJson(electricityData)
                 Log.i("Electricity price widget json", json.toString())
+
+                val now = LocalDate.now()
+                // TODO: Check the date on the rows, then put the data into
+                val todayFormatted = "2020-09-30"//now.format(DateTimeFormatter.ISO_LOCAL_DATE)
+                Log.i("Electricity price widget todayFormatted", todayFormatted)
+                for (row in json?.data?.Rows!!) {
+                    val rowDate = row.StartTime.substring(0,10)
+                    val rowStartHour = row.StartTime.substring(11,13)
+                    Log.i("Electricity price widget rowDate", rowDate)
+                    Log.i("Electricity price widget rowStartHour", rowStartHour)
+                    if (rowDate == todayFormatted) {
+                        for (column in row.Columns)
+                            if (column.Name == "DK2") {
+                                Log.i("Electricity price widget value", column.Value)
+
+                                val commaToDotValue: Float = try {
+                                    column.Value.replace(',','.').toFloat()
+                                } catch (err: java.lang.Exception) {
+                                    0f
+                                }
+                                if (!commaToDotValue.isNaN()) {
+                                    entries.add(BarEntry(rowStartHour.toFloat(), commaToDotValue))
+                                }
+                            }
+
+                    }
+                }
             } else {
                 Log.i("Electricity price widget in scope", "data is null")
             }
+            val dataSet = BarDataSet(entries, "price")
+            val barData = BarData(dataSet)
+            chart.data = barData
+            chart.invalidate()
 
 
         }
