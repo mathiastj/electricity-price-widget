@@ -9,8 +9,6 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         val chart = findViewById<BarChart>(R.id.bar_chart)
         chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         chart.xAxis.valueFormatter = XAxisDateFormatter()
-        chart.xAxis.granularity = 1f
+        chart.xAxis.granularity = 4f
+        chart.xAxis.labelRotationAngle = 90f;
 
         val entries = ArrayList<BarEntry>()
 
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             if (electricityData !== null) {
                 renderBarChartValues(electricityData, entries)
             }
-            val dataSet = BarDataSet(entries, "kr/kWh")
+            val dataSet = BarDataSet(entries, "kr/kWh with VAT")
             val barData = BarData(dataSet)
             chart.data = barData
             chart.invalidate()

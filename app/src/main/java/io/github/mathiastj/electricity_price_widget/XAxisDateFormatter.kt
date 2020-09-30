@@ -13,13 +13,12 @@ class XAxisDateFormatter : ValueFormatter() {
     override fun getAxisLabel(value: Float, axis: AxisBase?): String {
 
         val now = LocalDate.now()
-        val todayFormatted = now.format(DateTimeFormatter.ISO_LOCAL_DATE)
-        val tomorrowFormatted = now.plusDays(1).format(DateTimeFormatter.ISO_LOCAL_DATE)
+        val tomorrow = now.plusDays(1)
 
         return if (value < 24f) {
-            "$todayFormatted $${value.toInt()}:00"
+            "${now.dayOfMonth}/${now.monthValue} $${value.toInt()}:00"
         } else {
-            "$tomorrowFormatted ${value.toInt()-24}:00"
+            "${tomorrow.dayOfMonth}/${tomorrow.monthValue} ${value.toInt()-24}:00"
         }
 
 //        return Date(value.toLong()).toString()
