@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Electricity Price Widget</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">Electricity Prices</string>
     <string name="add_widget">Add widget</string>
     <string name="electricity_graph">electricity_graph</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Electricity Price Widget</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -12,9 +12,5 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="zeroOneHourPlaceHolder">0-1:</string>
-    <string name="zeroPlaceholder">0-1: 0.39</string>
-    <string name="onePlaceholder">1-2:</string>
-    <string name="twoPlaceholder">2-3:</string>
-    <string name="threePlaceholder">3-4:</string>
+    <string name="image_of_electricity_prices">Image of electricity prices</string>
 </resources>

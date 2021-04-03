@@ -14,7 +14,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ElectricityPriceWidgetProvider">
+        <receiver android:name="io.github.mathiastj.electricity_price_widget.ElectricityPriceWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
