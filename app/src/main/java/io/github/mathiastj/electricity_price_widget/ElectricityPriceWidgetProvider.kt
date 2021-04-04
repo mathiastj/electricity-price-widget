@@ -26,7 +26,7 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        Log.i("Electricity price widget", "I have been clicked")
+        Log.i("Electricity price widget", "I have been clicked or auto updated")
 
         // Set up update on click
         appWidgetIds.forEach { appWidgetId ->
@@ -46,8 +46,6 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
         }
 
 
-        Log.i("Electricity price widget", "I have been clicked")
-
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
         val today = LocalDate.now()
@@ -57,6 +55,7 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
 
         val views = RemoteViews(context.packageName, R.layout.electricity_price_widget_provider)
 
+        // Get and set image views
         val scope = CoroutineScope(context = Dispatchers.Main)
         scope.launch {
             val todayPricesImage = try {
@@ -64,7 +63,7 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
                     getElectricityPriceImage(formattedToday)
                 }
             } catch (err: Exception) {
-                Log.i("Electricity price widget in scope", "went bad")
+                Log.i("Electricity price widget in scope for today", "went bad")
                 err.printStackTrace()
                 if (err.message !== null) {
                     Log.e("Electricity price widget in scope", err.message)
@@ -72,7 +71,6 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
                 null
             }
             if (todayPricesImage !== null) {
-                Log.i("Electricity price widget in scope", "today")
                 val bitmap: Bitmap =
                     BitmapFactory.decodeByteArray(todayPricesImage, 0, todayPricesImage.size)
                 views.setImageViewBitmap(R.id.today_price_image, bitmap)
@@ -84,7 +82,7 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
                     getElectricityPriceImage(formattedTomorrow)
                 }
             } catch (err: Exception) {
-                Log.i("Electricity price widget in scope", "went bad")
+                Log.i("Electricity price widget in scope for tomorrow", "went bad")
                 err.printStackTrace()
                 if (err.message !== null) {
                     Log.e("Electricity price widget in scope", err.message)
@@ -92,7 +90,6 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
                 null
             }
             if (tomorrowPricesImage !== null) {
-                Log.i("Electricity price widget in scope", "tomorrow")
                 val bitmap: Bitmap =
                     BitmapFactory.decodeByteArray(tomorrowPricesImage, 0, tomorrowPricesImage.size)
                 views.setImageViewBitmap(R.id.tomorrow_price_image, bitmap)
@@ -109,10 +106,6 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
 
 
     private fun getElectricityPriceImage(day: String): ByteArray {
-        Log.i(
-            "url",
-            "https://raw.githubusercontent.com/mathiastj/electricity-price-render/master/daily_prices/${day}.png"
-        )
         return URL("https://raw.githubusercontent.com/mathiastj/electricity-price-render/master/daily_prices/${day}.png").readBytes()
     }
 }
