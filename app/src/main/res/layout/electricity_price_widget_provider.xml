@@ -1,28 +1,3 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin"
-    android:id="@+id/layout_widget"
-    android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/today_price_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/image_of_electricity_prices"
-        />
-
-    <ImageView
-        android:id="@+id/tomorrow_price_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/image_of_electricity_prices"
-        android:layout_below="@id/today_price_image"
-        />
-
-</RelativeLayout>
-
-<!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
@@ -34,6 +9,8 @@ android:orientation="vertical">
     android:id="@+id/today_price_image"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:scaleType="fitXY"
     android:contentDescription="@string/image_of_electricity_prices"
     />
 
@@ -41,8 +18,9 @@ android:orientation="vertical">
     android:id="@+id/tomorrow_price_image"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:scaleType="fitXY"
     android:contentDescription="@string/image_of_electricity_prices"
-    android:layout_below="@id/today_price_image"
     />
 
-</LinearLayout>-->
+</LinearLayout>

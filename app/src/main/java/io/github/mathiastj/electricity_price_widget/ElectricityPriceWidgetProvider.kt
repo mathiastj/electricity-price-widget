@@ -97,6 +97,9 @@ class ElectricityPriceWidgetProvider : AppWidgetProvider() {
                     BitmapFactory.decodeByteArray(tomorrowPricesImage, 0, tomorrowPricesImage.size)
                 views.setImageViewBitmap(R.id.tomorrow_price_image, bitmap)
 
+            } else {
+                // Make the image transparent if there's no data for tomorrow
+                views.setImageViewResource(R.id.tomorrow_price_image, android.R.color.transparent)
             }
             appWidgetIds.forEach { appWidgetId ->
                 appWidgetManager.updateAppWidget(appWidgetId, views)
