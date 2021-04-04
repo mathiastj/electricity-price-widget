@@ -7,3 +7,5 @@ Android widget for viewing electricity prices for today and tommorow for eastern
 Updates every 2 hours or by tapping anywhere on the widget.
 
 Uses my ![electricity price render project](https://github.com/mathiastj/electricity-price-render) to download and display prices. 
+
+Also contains a deprecated main activity which tries to render an electricity price graph itself.
