@@ -2,7 +2,10 @@
 
 Android widget for viewing electricity prices for today and tommorow for eastern Denmark.
 
-<img src="./app/src/main/res/drawable-v24/electricity_widget_preview.png" width="250">
+Shows nothing if no prices for tomorrow yet.
+
+<img src="./res/two_graphs.jpg" width="250">
+<img src="./res/one_graph.jpg" width="250">
 
 Updates every 2 hours or by tapping anywhere on the widget.
 
